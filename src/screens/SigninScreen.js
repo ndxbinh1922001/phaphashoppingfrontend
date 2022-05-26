@@ -67,7 +67,7 @@ export default function SigninScreen() {
           />
         </Form.Group>
         <ReCAPTCHA
-          sitekey="6LfOHRUgAAAAAJe-pRgsfWCm6S3guTsTrJHMYkQ8"
+          sitekey="6LdyeB8gAAAAAKMTYCTP8cudLOc9zrBpZlbxBa_H"
           onChange={onChangeCaptCha}
         />
         <div className="mb-3">
