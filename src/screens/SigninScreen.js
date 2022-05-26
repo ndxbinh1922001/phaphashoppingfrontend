@@ -9,7 +9,7 @@ import { Store } from "../Store";
 import { toast } from "react-toastify";
 import { getError } from "../utils";
 import { apiUrl } from "../components/constant";
-
+import ReCAPTCHA from "react-google-recaptcha";
 export default function SigninScreen() {
   const navigate = useNavigate();
   const { search } = useLocation();
@@ -17,6 +17,7 @@ export default function SigninScreen() {
   const redirect = redirectInUrl ? redirectInUrl : "/";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [captcha, setCaptcha] = useState(false);
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
@@ -34,7 +35,9 @@ export default function SigninScreen() {
       toast.error(getError(err));
     }
   };
-
+  const onChangeCaptCha = () => {
+    setCaptcha(true);
+  };
   useEffect(() => {
     if (userInfo) {
       navigate(redirect);
@@ -63,8 +66,18 @@ export default function SigninScreen() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
+        <ReCAPTCHA
+          sitekey="6LfOHRUgAAAAAJe-pRgsfWCm6S3guTsTrJHMYkQ8"
+          onChange={onChangeCaptCha}
+        />
         <div className="mb-3">
-          <Button type="submit">Đăng nhập</Button>
+          {!captcha ? (
+            <Button type="submit" disabled>
+              Đăng nhập
+            </Button>
+          ) : (
+            <Button type="submit">Đăng nhập</Button>
+          )}
         </div>
         <div className="mb-3">
           Bạn chưa có tài khoản?{" "}
